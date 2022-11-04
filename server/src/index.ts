@@ -2,9 +2,7 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
-import { readFileSync } from 'fs'
-import { getWords } from "../model/test_model";
-
+import wordsRouter from './routers/words'
 const app = express();
 
 app.use(cors({
@@ -14,13 +12,10 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(json());
 app.use(urlencoded({ extended: false }));
+app.use("/words", wordsRouter);
 
-
-
-// app.use('/',dataPage)
-
-app.get('/', (req, res) => {
-    res.json(getWords())
+app.get('*', (req, res) => {
+    res.status(404).json({ message: "incorrect end point" })
 })
 
 
