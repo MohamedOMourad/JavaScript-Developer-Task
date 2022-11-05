@@ -1,4 +1,4 @@
-import { Word } from "../types/types";
+import { Category, Word } from "../types";
 import { getTestData } from "../utils/functions";
 
 //shuffle word list to have random words each time
@@ -21,13 +21,14 @@ const randomizeWordList = (wordList: Word[]) => {
 
 //make sure to have at least one word for each category of part of speech in the test 
 const filterWordList = (wordList: Word[]) => {
-    const testWords: Word[] = [], obj: any = {};
+    const testWords: Word[] = [], categories: any = {};
+
 
     for (let i = 0; i < wordList.length; i++) {
         //categorize words according to their syntactic functions and check already saved in object or not
-        if (!obj[wordList[i].pos]) {
+        if (!categories[wordList[i].pos]) {
             //save it for first time
-            obj[wordList[i].pos] = wordList[i];
+            categories[wordList[i].pos] = wordList[i];
             // add word to the random test
             testWords.push(wordList[i]);
             //remove added words to prevent repetition
